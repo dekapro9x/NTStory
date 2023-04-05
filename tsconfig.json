@@ -1,3 +1,93 @@
 {
-  "extends": "@tsconfig/react-native/tsconfig.json"
+  "compilerOptions": {
+      "target": "esnext",
+      "lib": [
+          "es6"
+      ],
+      "module": "commonjs",
+      "sourceMap": true,
+      "jsx": "react",
+      "moduleResolution": "node",
+      "noResolve": false,
+      "removeComments": true,
+      "allowJs": true,
+      "types": [
+          "lodash",
+          "react",
+          "react-dom"
+        ],
+      "noImplicitAny": false,
+      "skipLibCheck": true,
+      "allowSyntheticDefaultImports": true,
+      "esModuleInterop": true,
+      "isolatedModules": true,
+      "noEmit": false,
+      "strict": false,
+      "importHelpers": true,
+      "declaration": true,
+      "rootDir": "./",
+      "outDir": "./",
+      "strictNullChecks": true,
+      "strictFunctionTypes": false,
+      "strictPropertyInitialization": true,
+      "noImplicitThis": false,
+      "alwaysStrict": true,
+      "noUnusedLocals": false,
+      "downlevelIteration": true,
+      "noUnusedParameters": false,
+      "noImplicitReturns": true,
+      "noFallthroughCasesInSwitch": true,
+      "resolveJsonModule": true,
+      "baseUrl": ".",
+      "paths": {
+          "@assets/*": [
+              "assets/*"
+          ],
+          "@component/*": [
+              "src/component/*"
+          ],
+          "@const/*": [
+            "src/const/*"
+          ],
+          "@hooks/*": [
+              "src/hooks/*"
+          ],
+          "@lib-custom/*": [
+            "src/lib-custom/*"
+        ],
+          "@navigations/*": [
+              "src/navigations/*"
+          ],
+          "@redux/*": [
+              "src/redux/*"
+          ],
+          "@screen/*": [
+              "src/screen/*"
+          ],
+          "@services/*": [
+              "src/services/*"
+          ],
+          "@util/*": [
+              "src/util/*"
+          ],
+          "*": [
+              "./*",
+              "node_modules/*"
+          ]
+      }
+  },
+  "include": [
+      "src/**/*"
+  ],
+  "exclude": [
+      "./node_modules/**/*",
+      "build",
+      "babel.config.js",
+      "metro.config.js",
+      "jest.config.js"
+  ],
+  "typeRoots": [
+      "../@types",
+      "./node_modules/@types/"
+    ]
 }
