@@ -12,6 +12,7 @@ module.exports = {
         '@navigations': './src/navigations',
         '@networking': './src/networking',
         '@redux': './src/redux',
+        '@type': './src/type',
         '@screens': './src/screens',
         '@services': './src/services',
         '@utils': './src/utils'

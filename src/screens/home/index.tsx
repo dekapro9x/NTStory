@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
-import { keyNavigation } from '../../navigations/key-navigation';
-import navigation from '../../navigations/navigation';
+import { keyNavigation } from '@navigations/key-navigation';
+import navigation from '@navigations/navigation';
 const AppIntroScreen = () => {
 
     const backScreen = () => {

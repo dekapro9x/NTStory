@@ -64,14 +64,17 @@
           "@redux/*": [
               "src/redux/*"
           ],
-          "@screen/*": [
-              "src/screen/*"
+          "@screens/*": [
+              "src/screens/*"
           ],
           "@services/*": [
               "src/services/*"
           ],
-          "@util/*": [
-              "src/util/*"
+          "@type/*": [
+            "src/type/*"
+        ],
+          "@utils/*": [
+              "src/utils/*"
           ],
           "*": [
               "./*",

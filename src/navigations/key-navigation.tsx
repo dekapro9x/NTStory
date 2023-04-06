@@ -1,4 +1,4 @@
-import keyMirror from "../utils/key_mirror";
+import keyMirror from "@utils/key_mirror";
 
 const keyNavigation = keyMirror({
     INIT:null,

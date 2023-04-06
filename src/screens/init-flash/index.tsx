@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 import { useEffect } from 'react';
-import navigation from '../../navigations/navigation';
-import { keyNavigation } from '../../navigations/key-navigation';
+import navigation from '@navigations/navigation';
+import { keyNavigation } from '@navigations/key-navigation';
 
 const InitScreen = () => {
     const navigationRoute = useNavigation();

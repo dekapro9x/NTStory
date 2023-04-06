@@ -1,12 +1,12 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React from "react";
-import { randomAnimationsScreen } from "../utils/random-animations-screen";
+import { randomAnimationsScreen } from "@utils/random-animations-screen";
 import { keyNavigation } from "./key-navigation";
 
 //Danh sách màn hình:
-import AppInitScreen from '../screens/init-flash';
-import AppIntroScreen from '../screens/app-intro';
-import HomeScreen from '../screens/home';
+import AppInitScreen from '@screens/init-flash';
+import AppIntroScreen from '@screens/app-intro';
+import HomeScreen from '@screens/home';
 
 const RootStack = createNativeStackNavigator();
 
