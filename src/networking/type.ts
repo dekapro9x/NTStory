@@ -16,4 +16,5 @@ export type Options = {
 
 export type responseRequestInstance = {
   status?: number;
+  data ?:any;
 };

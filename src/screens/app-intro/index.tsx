@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, TouchableOpacity, View, TextInput } from 'react-native';
 import { keyNavigation } from '../../navigations/key-navigation';
 import navigation from '../../navigations/navigation';
-import {AppClient} from '@networking/url-api';
+import { AppClient } from '@networking/url-api';
 
 type iState = {
     userName: string;
@@ -14,18 +14,18 @@ const AppIntroScreen = () => {
         userName: '',
         passWord: '',
     });
-    
+
     const nextScreen = () => {
-        navigation.navigate(keyNavigation.HOME)
+        navigation.navigate(keyNavigation.HOME);
     }
 
-    const pressLoginAPI = () => {
-        AppClient.Login({
+    const pressLoginAPI = async () => {
+        const response = await AppClient.Login({
             UserName: 'CNB-99-9999',
             Password: '12345Aa@'
-        })
+        });
+        console.log("Kết quả call API login:", response);
     }
-
 
     return (
         <View style={styles.container}>

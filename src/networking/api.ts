@@ -1,18 +1,29 @@
 import NetInfo from '@react-native-community/netinfo';
-import axios, {AxiosError, AxiosInstance, AxiosRequestConfig} from 'axios';
+import axios, {
+  AxiosError,
+  AxiosInstance,
+  AxiosRequestConfig,
+  AxiosResponse,
+} from 'axios';
 import {ApiConfigs, ApiTypeDomain, isSuccess} from './const-config';
 import {Options, responseRequestInstance, typeRequest} from './type';
-let expiredAccount = false;
+
 const defaultHeaders: {[x: string]: string} = {
   'Content-Type': 'application/json',
   Accept: 'application/json',
 };
+let expiredAccount = false;
 
 const instance: AxiosInstance = axios.create(ApiConfigs);
 
 const getTokenHeader = () => {
   const tokenUser = '7234872384723847823748324';
-  return 'ApiToken ' + tokenUser;
+  // return 'ApiToken ' + tokenUser;
+  return '';
+};
+
+const getUserID = () => {
+  return '1236';
 };
 
 instance.interceptors.request.use(
@@ -20,7 +31,15 @@ instance.interceptors.request.use(
     //Khởi tạo request gắn token user vào header:
     if (getTokenHeader()) {
       request.headers = {
-        Authorization: getTokenHeader(),
+        ['Authorization']: getTokenHeader(),
+        ['DeviceID']: '0e001af06401695c',
+        ['DeviceOS']: 'android',
+        ['Accept']: 'application/json',
+        ['ApiKey']: 'APPS',
+        ['ApiSecretKey']: 'DRIVER',
+        ['Content-Type']: 'application/json',
+        ['VehicleID']: '7571',
+        ['VehicleNo']: '51C-874.00',
       };
     }
     return request;
@@ -84,26 +103,29 @@ const getOptionsRequest = (
   }
   newOptions['url'] = url;
   newOptions['data'] = params;
+  headers['Accept'] = 'application/json';
   headers['DeviceID'] = '0e001af06401695c';
   headers['DeviceOS'] = 'android';
+  headers['Content-Type'] = 'application/json';
   if (apiTypeRequestDomain == ApiTypeDomain.tms) {
-    headers['Accept'] = 'application/json';
     headers['ApiKey'] = 'APPS';
     headers['ApiSecretKey'] = 'DRIVER';
-    headers['Content-Type'] = 'application/json';
     headers['VehicleID'] = '7571';
     headers['VehicleNo'] = '51C-874.00';
-    // headers['UserID'] = '';
+    if (getUserID()) {
+      headers['UserID'] = getUserID();
+    }
     // headers['VehicleID'] = '';
     // headers['JourneyID'] = '';
   }
   //PMS Domain:
-  if (apiTypeRequestDomain == ApiTypeDomain.pms) {
+  if (apiTypeRequestDomain == ApiTypeDomain.domain2) {
+    //Thêm config Header: Vào đây
   }
   //Chat 247 Domain:
-  if (apiTypeRequestDomain == ApiTypeDomain.chat247) {
+  if (apiTypeRequestDomain == ApiTypeDomain.domain3) {
+    //Thêm config Header: Vào đây
   }
-
   return {
     ...newOptions,
     headers,
@@ -124,42 +146,9 @@ const requestInstanceWithResponse = async (
       options,
       apiTypeRequestDomain,
     );
-    console.log('requestOptions', requestOptions);
-    // const response = await axios.post(url,params,requestOptions);
-    // console.log('response', response);
-    const response = await axios.request(requestOptions);
+    const response: AxiosResponse = await axios.request(requestOptions);
     console.log('response', response);
-    // axios
-    //   .post(
-    //     'http://222.252.27.138:46488/api/Account/LoginToPhone',
-    //     {
-    //       UserName: 'CNB-99-9999',
-    //       Password: '12345Aa@',
-    //     },
-    //     {
-    //       headers: {
-    //         Accept: 'application/json',
-    //         ApiKey: 'APPS',
-    //         ApiSecretKey: 'DRIVER',
-    //         ['Content-Type']: 'application/json',
-    //         DeviceID: '0e001af06401695c',
-    //         DeviceOS: 'android',
-    //         VehicleID: '51C-874.00',
-    //       },
-    //     },
-    //   )
-    //   .then(function (response) {
-    //     // handle success
-    //     alert(JSON.stringify(response.data));
-    //   })
-    //   .catch(function (error) {
-    //     console.log('Lỗi', error);
-    //     // handle error
-    //     alert(error.message);
-    //   });
-    // console.log('response', response);
-    // console.log('response', response);
-    // return response.data;
+    return response.data;
   } catch (error) {}
 };
 
@@ -200,41 +189,39 @@ const requestInstanceWithMethod = async (
         return null;
       }
     }
-    if (response && response?.status) {
-      let status = response.status;
-      let responsesData = response;
-      if (isSuccess(status)) {
-        // dispatch(actions.hideLoading());
-        return responsesData;
-      } else {
-        // dispatch(actions.hideLoading());
-        // showAlertError(messageError);
-        return response;
-      }
+    console.log(
+      '%c Header call API:',
+      'color:blue',
+      JSON.stringify(requestOptionsHeader),
+    );
+    console.log('%c Kết quả gọi API:', 'color:red', response);
+    if (isSuccess(response.status)) {
+      return response.data;
     }
   } catch (error) {
-    //   dispatch(actions.hideLoading());
     return error.response;
   }
 };
 
 //Danh sách các phương thức:
+//GET:
 const getRequestInstance = async (
   url: string,
   params: any,
   options: Options,
   ApiTypeDomain: string,
 ) => {
-  const responseMethodPost = await requestInstanceWithMethod(
+  const responseMethodGet = await requestInstanceWithMethod(
     url,
     params,
     options,
     typeRequest.GET,
     ApiTypeDomain,
   );
-  return responseMethodPost;
+  return responseMethodGet;
 };
 
+//POST:
 const postRequestInstance = async (
   url: string,
   params: any,
@@ -251,36 +238,38 @@ const postRequestInstance = async (
   return responseMethodPost;
 };
 
+//PUT:
 const pushRequestInstance = async (
   url: string,
   params: any,
   options: Options,
   ApiTypeDomain: string,
 ) => {
-  const responseMethodPost = await requestInstanceWithMethod(
+  const responseMethodPush = await requestInstanceWithMethod(
     url,
     params,
     options,
-    typeRequest.POST,
+    typeRequest.PUT,
     ApiTypeDomain,
   );
-  return responseMethodPost;
+  return responseMethodPush;
 };
 
+// DELETE:
 const deleteRequestInstance = async (
   url: string,
   params: any,
   options: Options,
   ApiTypeDomain: string,
 ) => {
-  const responseMethodPost = await requestInstanceWithMethod(
+  const responseMethodDelete = await requestInstanceWithMethod(
     url,
     params,
     options,
-    typeRequest.POST,
+    typeRequest.DELETE,
     ApiTypeDomain,
   );
-  return responseMethodPost;
+  return responseMethodDelete;
 };
 
 export {
@@ -289,5 +278,4 @@ export {
   pushRequestInstance,
   deleteRequestInstance,
   requestInstanceWithResponse,
-  requestInstanceWithMethod,
 };

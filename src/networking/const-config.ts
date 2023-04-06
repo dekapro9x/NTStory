@@ -4,8 +4,8 @@ export const baseFileUrl = 'https://tms-v2-dev.247post.vn/files/';
 
 export const ApiTypeDomain = {
   tms: 'TMS',
-  chat247: 'Chat247',
-  pms: 'PMS2',
+  domain2: 'domain2',
+  domain3: 'domain3',
 };
 
 export const ApiConfigs = {
@@ -41,6 +41,9 @@ export const API_ERROR_CODE = {
   },
 };
 
-export function isSuccess(statusResponse: number) {
-  return ERROR_CODE_SUCCESS.indexOf(statusResponse) > -1;
+export function isSuccess(statusResponse?: number) {
+  if (statusResponse) {
+    return ERROR_CODE_SUCCESS.indexOf(statusResponse) > -1;
+  }
+  return false;
 }
