@@ -1,17 +1,37 @@
-import React from 'react';
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, TouchableOpacity, View, TextInput } from 'react-native';
 import { keyNavigation } from '../../navigations/key-navigation';
 import navigation from '../../navigations/navigation';
+import {AppClient} from '@networking/url-api';
+
+type iState = {
+    userName: string;
+    passWord: string;
+}
 
 const AppIntroScreen = () => {
+    const [state, setState] = useState<iState>({
+        userName: '',
+        passWord: '',
+    });
+    
     const nextScreen = () => {
         navigation.navigate(keyNavigation.HOME)
     }
+
+    const pressLoginAPI = () => {
+        AppClient.Login({
+            UserName: 'CNB-99-9999',
+            Password: '12345Aa@'
+        })
+    }
+
+
     return (
         <View style={styles.container}>
             <TouchableOpacity
-                onPress={nextScreen}
-                style={{ height: 40, width: 100, backgroundColor: 'blue' }}
+                onPress={pressLoginAPI}
+                style={{ height: 40, width: 100, backgroundColor: 'blue', alignSelf: 'center' }}
             >
 
             </TouchableOpacity>
@@ -22,7 +42,8 @@ const AppIntroScreen = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'red'
+        backgroundColor: 'red',
+        justifyContent: 'center',
     }
 })
 

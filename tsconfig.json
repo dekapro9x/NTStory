@@ -58,6 +58,9 @@
           "@navigations/*": [
               "src/navigations/*"
           ],
+          "@networking/*": [
+            "src/networking/*"
+        ],
           "@redux/*": [
               "src/redux/*"
           ],

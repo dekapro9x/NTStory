@@ -10,6 +10,7 @@ module.exports = {
         '@hooks': './src/hooks',
         '@lib-custom': './src/lib-custom',
         '@navigations': './src/navigations',
+        '@networking': './src/networking',
         '@redux': './src/redux',
         '@screens': './src/screens',
         '@services': './src/services',
